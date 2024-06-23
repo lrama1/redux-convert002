@@ -1,13 +1,22 @@
-//DomainDetail-template.js
 import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Calendar } from "primereact/calendar";
+import { useDispatch, useSelector } from "react-redux";
+import { edited, saveAccount } from "./accountSlice";
 
-function AccountEdit({ selectedAccount, onEditAccount, onSaveAccount }) {
+function AccountEdit() {
+  const dispatch = useDispatch();
+
+  const selectedAccount = useSelector((state) => state.account.entity);
+
   function buttonEventHandler(event) {
-    onSaveAccount("account/" + selectedAccount.accountId, selectedAccount);
+    dispatch(saveAccount(selectedAccount));
     event.preventDefault();
+  }
+
+  function onEditAccount(event) {
+    const { name, value } = event.target;
+    dispatch(edited({ name, value }));
   }
 
   return (

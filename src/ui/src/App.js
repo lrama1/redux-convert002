@@ -18,6 +18,7 @@ import Home from "./components/Home";
 import AccountListContainer from "./containers/AccountListContainer";
 import AccountEditContainer from "./containers/AccountEditContainer";
 import AccountList from "./features/account/AccountList";
+import AccountEdit from "./features/account/AccountEdit";
 
 const App = (props) => {
   const [menuActive, setMenuActive] = useState(false);
@@ -90,7 +91,7 @@ const App = (props) => {
     },
     {
       path: "/account",
-      component: AccountEditContainer,
+      component: AccountEdit,
       meta: { breadcrumb: [{ parent: "UI Kit", label: "Account" }] },
     },
   ];

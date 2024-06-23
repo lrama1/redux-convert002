@@ -3,7 +3,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
-import { fetchAccounts, pageChanged } from "./accountsSlice";
+import { fetchAccounts, pageChanged, sorted } from "./accountsSlice";
+import { fetchAccount } from "./accountSlice";
+import { useHistory } from "react-router-dom";
 
 function AccountList() {
   const dispatch = useDispatch();
@@ -18,6 +20,8 @@ function AccountList() {
     sortOrder,
   } = useSelector((state) => state.accounts);
 
+  const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchAccounts());
   }, [dispatch]);
@@ -27,9 +31,16 @@ function AccountList() {
     dispatch(fetchAccounts());
   }
 
-  function onSort() {}
+  function onSort({ sortField, sortOrder }) {
+    dispatch(sorted({ sortField, sortOrder }));
+    dispatch(fetchAccounts());
+  }
 
-  function buttonClicked(event) {}
+  function buttonClicked(event) {
+    const accountId = event.target.value;
+    dispatch(fetchAccount("account/" + accountId));
+    history.push({ pathname: "/account" });
+  }
 
   function actionTemplate(rowData, column) {
     return (
