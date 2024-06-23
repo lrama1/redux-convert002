@@ -1,0 +1,6 @@
+basePackage=com.sample
+secureCodeEnabled=false
+useMongo=false
+uiType=React
+prepForOracle=false
+prepForHSQL=true
